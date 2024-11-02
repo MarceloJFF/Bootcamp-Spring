@@ -26,6 +26,7 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "tb_category")
+//Objeto java ser convertido em sequencia de bytes para ser passado em rede (geralmente versoes antigas)
 public class Category implements Serializable {
     private static final long serialVersionUID= 1L;
     @Id
