@@ -1,11 +1,14 @@
 package com.example.demo.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,15 +18,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@ToString
+
 @Data
-@Setter
-@EqualsAndHashCode
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
-
-
 @Entity
 @Table(name = "tb_category")
 //Objeto java ser convertido em sequencia de bytes para ser passado em rede (geralmente versoes antigas)
@@ -33,5 +29,4 @@ public class Category implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-
 }
