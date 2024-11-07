@@ -35,7 +35,7 @@ public class Account {
         }
     }
 
-    public void withdraw(double amount){
+    public void withdraw(Double amount){
         if(amount> balance){
             throw new IllegalArgumentException();
         }
