@@ -2,7 +2,6 @@ package com.example.demo.resources;
 
 import java.net.URI;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable; 
 import org.springframework.data.domain.Page;
@@ -20,46 +19,48 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.example.demo.dto.ProductDTO;
-import com.example.demo.services.ProductService;
+import com.example.demo.dto.UserDTO;
+import com.example.demo.dto.UserInsertDTO;
+
+import com.example.demo.services.UserService;
 
 @RestController
-@RequestMapping(value = "/Product")
-public class ProductResource {
+@RequestMapping(value = "/users")
+public class UserResource {
     @Autowired
-    private ProductService service;
+    private UserService service;
 
     @GetMapping()
-    public ResponseEntity<Page<ProductDTO>> findAll(Pageable pageable ){
+    public ResponseEntity<Page<UserDTO>> findAll(Pageable pageable ){
     
         // page,size, sort
-        Page<ProductDTO> list = service.findAllPaged(pageable);
+        Page<UserDTO> list = service.findAllPaged(pageable);
         //Ok automaticamente responde com codigo 200 a requisicao e corpo sao as informacoes
         return ResponseEntity.ok().body(list);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<ProductDTO> findById(@PathVariable Long id){
-        ProductDTO dto = service.findById(id);
+    public ResponseEntity<UserDTO> findById(@PathVariable Long id){
+        UserDTO dto = service.findById(id);
         return ResponseEntity.ok().body(dto);
     }
     @PostMapping
-    public ResponseEntity<ProductDTO> insert(@RequestBody ProductDTO dto){
-        dto = service.insert(dto);
+    public ResponseEntity<UserDTO> insert(@RequestBody UserInsertDTO dto){
+        UserDTO userDto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
             .path("/{id}")
             .buildAndExpand(dto.getId())
             .toUri();
         
         // Retorna a resposta com o status 201 (created)
-        return ResponseEntity.created(uri).body(dto);
+        return ResponseEntity.created(uri).body(userDto);
     }
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductDTO dto ){
+    public ResponseEntity<UserDTO> update(@PathVariable Long id, @RequestBody UserDTO dto ){
         dto = service.update(id,dto);
         return ResponseEntity.ok().body(dto);
     }
-    @DeleteMapping(value="/{id}")
+    @DeleteMapping
     public ResponseEntity<Object> delete(@PathVariable Long id){
         service.delete(id);
         return ResponseEntity.noContent().build();//Código de deletado
