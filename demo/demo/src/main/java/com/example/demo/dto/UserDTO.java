@@ -6,6 +6,9 @@ import java.util.Set;
 import com.example.demo.entities.Role;
 import com.example.demo.entities.User;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,8 +27,11 @@ import lombok.ToString;
 public class UserDTO implements Serializable{
     private static final long serialVersionUID= 1L;
     private Long id;
+
+    @NotBlank(message ="campo obrigatório")
     private String firstName;
     private String lastName;
+    @Email(message = "favor entrar com um email válido")
     private String email;
     Set<RoleDTO> roles = new HashSet<>();
 
